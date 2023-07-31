@@ -12,6 +12,8 @@ def index(request):
         "posts": Post.objects.all()
     })
 
+def create(request):
+    pass
 
 def login_view(request):
     if request.method == "POST":
