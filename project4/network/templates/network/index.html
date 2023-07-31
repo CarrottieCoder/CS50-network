@@ -20,9 +20,9 @@
                     <strong>{{ post.author }} </strong> posted on <strong>{{ post.timestamp }}</strong>
                 </div>
                 <div class="card-body"> 
-                <p class="card-text"> {{ post.body }}</p>
+                <p id = "post-text" class="card-text"> {{ post.body }}</p>
                 {% if request.user == post.author %}
-                    <a href="#" >edit</a>
+                    <p id="edit-post" style="color: #0033ff; text-decoration: underline; cursor: pointer;">edit</p>
                 {% endif %}
                 </div>
                 <div class="card-footer text-body-secondary">

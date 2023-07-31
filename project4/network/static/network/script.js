@@ -12,4 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
               console.log(result);
           });
     }
+    document.querySelector('#edit-post').onclick = () => {
+        document.querySelector('#post-text').innerHTML = ''
+        console.log('Works')
+    }
 })
