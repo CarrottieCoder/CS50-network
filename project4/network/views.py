@@ -3,6 +3,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from .models import User, Post
 
@@ -12,8 +14,27 @@ def index(request):
         "posts": Post.objects.all()
     })
 
+@csrf_exempt
+@login_required
 def create(request):
-    pass
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    # Check recipient emails
+    data = json.loads(request.body)
+
+    # Get contents of email
+    subject = data.get("subject", "")
+    body = data.get("body", "")
+
+    # Create a post
+    post = Post(
+        author=request.user,
+        subject=subject,
+    )
+    post.save()
+
+    return JsonResponse({"message": "Email sent successfully."}, status=201)
 
 def login_view(request):
     if request.method == "POST":
