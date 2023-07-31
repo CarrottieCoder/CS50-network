@@ -1,3 +1,5 @@
+import json
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -17,20 +19,17 @@ def index(request):
 @csrf_exempt
 @login_required
 def create(request):
+
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
 
     # Check recipient emails
     data = json.loads(request.body)
-
-    # Get contents of email
-    subject = data.get("subject", "")
     body = data.get("body", "")
-
     # Create a post
     post = Post(
         author=request.user,
-        subject=subject,
+        body=body,
     )
     post.save()
 

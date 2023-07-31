@@ -1,5 +1,5 @@
 {% extends "network/layout.html" %}
-
+{% load static %}
 {% block body %}
     <div id="posts" style="display: grid; place-items: center;">
         <h1 style="margin: 20px">All posts</h1>
@@ -7,7 +7,7 @@
             <div class="card-body">
                 <p style="font-size: 25px">New post: </p>
                 <form id="create-post">
-                    <textarea class="form-control" id="compose-body" placeholder="Body" rows="8" ></textarea>
+                    <textarea class="form-control" id="create-body" placeholder="Body" rows="8" ></textarea>
                     <input type="submit" class="btn btn-primary" style="margin-top: 10px"/>
                 </form>
             </div>
