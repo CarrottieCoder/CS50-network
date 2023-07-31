@@ -11,4 +11,6 @@ urlpatterns = [
     path("following", views.following, name="following"),
     #API
     path("create", views.create, name="create"),
+    path("/<int:post_id>/edit", views.edit_post, name="edit_post"),
 ]
+

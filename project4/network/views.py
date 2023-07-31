@@ -19,6 +19,17 @@ def index(request):
 def following(request):
     pass
 
+def edit_post(request, post_id):
+    post = Post.objects.get(id=id)
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        if data.get("body") is not None:
+            post.read = data["body"]
+        post.save()
+        return HttpResponse(status=204)
+    else:
+        return HttpResponse("Something went wrong")
+
 @csrf_exempt
 @login_required
 def create(request):
