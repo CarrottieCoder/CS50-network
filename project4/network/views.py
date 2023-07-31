@@ -16,6 +16,9 @@ def index(request):
         "posts": Post.objects.all()
     })
 
+def following(request):
+    pass
+
 @csrf_exempt
 @login_required
 def create(request):
