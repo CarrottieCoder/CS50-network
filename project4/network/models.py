@@ -20,8 +20,12 @@ class User(AbstractUser):
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='usersPosts')
     body = models.TextField()
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='posts_liked')
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def count_likes(self):
+        return self.likes.count()
+
 
     def __str__(self):
         return f"{self.author} posted on {self.timestamp}: {self.body[:50]}"
