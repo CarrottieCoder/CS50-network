@@ -53,6 +53,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     });
+
+    document.querySelectorAll('.like-post').forEach((element) => {
+        element.addEventListener('dblclick', ()  =>{
+            fetch(`api/${post_id}/edit`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    body: post_parent.childNodes[1].value
+                })
+              })
+              .then(response => {
+                if (response.ok){
+                    post_parent.innerHTML = post_parent.childNodes[1].value
+                    post_parent.parentElement.childNodes[3].innerHTML = "edit"
+                    localStorage.removeItem(post_parent.id);
+        
+                } else{
+                    alert("Something went wrong. Reload the page")
+                }
+        })
+    })
     
 })
 
@@ -77,13 +97,11 @@ function save_edited_post(post_parent){
             alert("Something went wrong. Reload the page")
         }
       })
+
 };
    
-function get_post(post_id){
-    fetch(`api/${post_id}`)
-    .then(response => response.json())
-    .then(post => {
-        // Print emails
-        console.log(post)
-    })
-}
+// function get_post(post_id) {
+//     fetch(`api/${post_id}`)
+//     .then(response => response.json())
+//     .then(post => console.log(post))
+
