@@ -60,11 +60,6 @@ function save_edited_post(post_parent){
    const post_id_pre = post_parent.id
    const post_id = post_id_pre.replace("post-text-", "");
    console.log(post_id)
-   fetch(`api/${post_id}`)
-   .then(response => response.json())
-   .then(post => {
-       // Print emails
-       
        fetch(`api/${post_id}/edit`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -76,8 +71,14 @@ function save_edited_post(post_parent){
                 // Print emails
                 console.log(data)
        
-    })        
-   });
-
+            })        
 };
    
+function get_post(post_id){
+    fetch(`api/${post_id}`)
+    .then(response => response.json())
+    .then(post => {
+        // Print emails
+        console.log(post)
+    })
+}

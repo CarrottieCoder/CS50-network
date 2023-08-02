@@ -35,6 +35,7 @@ def get_post(request, post_id):
 def following(request):
     pass
 
+@csrf_exempt
 def edit_post(request, post_id):
     post = Post.objects.get(id=id)
     if request.method == "PUT":
