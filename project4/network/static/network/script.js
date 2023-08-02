@@ -16,35 +16,49 @@ document.addEventListener('DOMContentLoaded', () => {
         post.onclick = function(event) {
             // Bug: Event propagating
             event.stopPropagation()
-            console.log(event.target)
-            // Clean the space, create textarea, save text
-            text = document.querySelector('#post-text').innerHTML
-            document.querySelector('#post-text').innerHTML = " "
-            const edit_Textarea  = document.createElement('textarea')
+            // Get the parent, get the text
+            const postParent = post.parentElement
+            
+            const pre_string = postParent.textContent
+            const just_text = pre_string.replace("edit", "");
+            const text = just_text.trim()
 
-            // Style the textarea
-            edit_Textarea.id = 'edit-textarea'
-            edit_Textarea.style.width = "100%" 
-            edit_Textarea.rows = 8
-            edit_Textarea.innerHTML = text
+            if(!text.includes('<textarea')){
+                postParent.innerHTML = " "
+                
+                const edit_Textarea  = document.createElement('textarea')
 
-            //Create submit button
-            const submit_button =  document.createElement('button')
-            submit_button.id = "submit-button"
-            submit_button.className = "btn btn-primary"
-            submit_button.innerHTML = "Save"
-            submit_button.onclick = edit_post(post)
+                // Style the textarea
+                edit_Textarea.id = 'edit-textarea'
+                edit_Textarea.style.width = "100%" 
+                edit_Textarea.rows = 8
+                edit_Textarea.innerHTML = text
 
-            //Add elements to the document
-            document.querySelector('#post-text').append(edit_Textarea)
-            document.querySelector('#post-text').append(submit_button)
+                //Create submit button
+                const submit_button =  document.createElement('button')
+                submit_button.id = "submit-button"
+                submit_button.className = "btn btn-primary"
+                submit_button.innerHTML = "Save"
 
-            post.style.display = 'None'
+                //Add elements to the document
+                postParent.append(edit_Textarea)
+                postParent.append(submit_button)
+
+                document.querySelector('#submit-button').onclick = edit_post(post)
+
+                post.innerHTML = "cancel"
+            }
+            else {
+                const edited_text = document.querySelector('#edit-textarea').value
+                console.log(edited_text)
+                postParent.innerHTML = edited_text
+                post.innerHTML = "edit"
+            }
         };
     });
     
 })
 
 function edit_post(post){
-    console.log(`C123241234`)
+    console.log('Should work')
 }
