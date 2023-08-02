@@ -56,20 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
 })
 
-function save_edited_post(post_parent){
-    const post_id_pre = post_parent.id
-    const post_id_str = post_id_pre.replace("post-text-", "");
-    const post_id = parseInt(post_id_str);
-    
-    fetch('/', {
-       method: 'GET',
-        body: JSON.stringify({
-            id: post_id
-        })
-      })
-      .then(response => response.json())
-      .then(result => {
-          // Print result
-          console.log(result);
-      });
-}
+//Does not work
+//function save_edited_post(post_parent){
+//    const post_id_pre = post_parent.id
+//    const post_id = post_id_pre.replace("post-text-", "");
+//    console.log(post_id)
+//    fetch(`api/posts/${post_id}`)
+//    .then(response => response.json())
+//    .then(emails => {
+//        // Print emails
+//        console.log(emails);
+
+        // ... do something else with emails ...
+//    });
+//    }

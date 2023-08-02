@@ -14,7 +14,7 @@
                 </div>
             </div>
         {% endif %}
-        {% for post in posts %}
+        {% for post in page_obj %}
             <div class="card text-center" style="width:50%; margin: 20px;">
                 <div class="card-header">
                     <strong>{{ post.author }} </strong> posted on <strong>{{ post.timestamp }}</strong>
@@ -33,5 +33,22 @@
         {% empty %}
             <p>No posts</p>
         {%  endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+
     </div>
 {% endblock %}

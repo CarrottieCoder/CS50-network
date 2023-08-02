@@ -1,4 +1,5 @@
 import json
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
@@ -12,14 +13,20 @@ from .models import User, Post
 
 
 def index(request):
-    return render(request, "network/index.html", {
-        "posts": Post.objects.all()
-    })
+    posts = Post.objects.all().order_by('-timestamp')
+    paginator = Paginator(posts, 10)  # Show 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'network/index.html',{
+        'page_obj': page_obj, 
+        })
+    
 
 def get_post(request, post_id):
+    print(post_id)
     try:
-        post = Post.objects.get(pk=email_id)
-    except Email.DoesNotExist:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
         return JsonResponse({"error": "Email not found."}, status=404)
 
     if request.method == "GET":
