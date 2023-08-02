@@ -67,11 +67,16 @@ function save_edited_post(post_parent){
             body: post_parent.childNodes[1].value
         })
       })
-      .then(response => response.json())
-      .then(result => {
-          // Print result
-          console.log(result);
-      });
+      .then(response => {
+        if (response.ok){
+            post_parent.innerHTML = post_parent.childNodes[1].value
+            post_parent.parentElement.childNodes[3].innerHTML = "edit"
+            localStorage.removeItem(post_parent.id);
+
+        } else{
+            alert("Something went wrong. Reload the page")
+        }
+      })
 };
    
 function get_post(post_id){
