@@ -64,6 +64,20 @@ function save_edited_post(post_parent){
    .then(response => response.json())
    .then(post => {
        // Print emails
-       console.log(post);
+       
+       fetch(`api/${post_id}/edit`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            body: post_parent.childNodes[1].value
+        })
+      })
+            .then(response => response.json())
+            .then(data => {
+                // Print emails
+                console.log(data)
+       
+    })        
    });
-   }
+
+};
+   
