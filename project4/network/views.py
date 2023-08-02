@@ -37,13 +37,14 @@ def following(request):
 
 @csrf_exempt
 def edit_post(request, post_id):
-    post = Post.objects.get(id=id)
-    if request.method == "PUT":
-        data = json.loads(request.body)
-        if data.get("body") is not None:
-            post.read = data["body"]
-        post.save()
-        return HttpResponse(status=204)
+    post = Post.objects.get(id=post_id)
+    if request.user == post.author:
+        if request.method == "PUT":
+            data = json.loads(request.body)
+            if data.get("body") is not None:
+                post.body = data["body"]
+            post.save()
+            return HttpResponse(status=204)
     else:
         return HttpResponse("Something went wrong")
 

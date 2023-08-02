@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 })
 
+
 function save_edited_post(post_parent){
    const post_id_pre = post_parent.id
    const post_id = post_id_pre.replace("post-text-", "");
@@ -66,12 +67,11 @@ function save_edited_post(post_parent){
             body: post_parent.childNodes[1].value
         })
       })
-            .then(response => response.json())
-            .then(data => {
-                // Print emails
-                console.log(data)
-       
-            })        
+      .then(response => response.json())
+      .then(result => {
+          // Print result
+          console.log(result);
+      });
 };
    
 function get_post(post_id){
