@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
           });
     }
     document.querySelectorAll('.edit-post').forEach((link) => {
-        link.onclick = function() {  
+        link.onclick = function(event) { 
+            event.stopPropagation() 
             const post_text = link.parentElement.childNodes[1]
             const text = post_text.innerHTML
             if (!localStorage.getItem(post_text.id)){
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 submit_button.id = "submit-button"
                 submit_button.className = "btn btn-primary"
                 submit_button.innerHTML = "Save"
+                submit_button.onclick = () => save_edited_post(post_text)
 
                 //Clear div
                 post_text.innerHTML = " "
@@ -49,12 +51,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem(post_text.id);
                 link.textContent = "edit"
             }
-
         };
     });
     
 })
 
-function edit_post(post){
-    console.log('Should work')
+function save_edited_post(post_parent){
+    const post_id_pre = post_parent.id
+    const post_id_str = post_id_pre.replace("post-text-", "");
+    const post_id = parseInt(post_id_str);
+    
+    fetch('/', {
+       method: 'GET',
+        body: JSON.stringify({
+            id: post_id
+        })
+      })
+      .then(response => response.json())
+      .then(result => {
+          // Print result
+          console.log(result);
+      });
 }
