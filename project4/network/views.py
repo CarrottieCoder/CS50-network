@@ -21,13 +21,25 @@ def index(request):
         'page_obj': page_obj, 
         })
     
+def like_post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    if request.method == "PUT":
+       if request.user not in post.likes:
+            post.likes.append(request.user)
+            post.save()
+            return HttpResponse(status=204)
+        
 
 def get_post(request, post_id):
     print(post_id)
     try:
         post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
-        return JsonResponse({"error": "Email not found."}, status=404)
+        return JsonResponse({"error": "Post not found."}, status=404)
 
     if request.method == "GET":
         return JsonResponse(post.serialize())

@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
 })
-
+});
 
 function save_edited_post(post_parent){
    const post_id_pre = post_parent.id
@@ -97,11 +97,12 @@ function save_edited_post(post_parent){
             alert("Something went wrong. Reload the page")
         }
       })
-
+      
 };
+
    
 // function get_post(post_id) {
 //     fetch(`api/${post_id}`)
 //     .then(response => response.json())
 //     .then(post => console.log(post))
-
+//
