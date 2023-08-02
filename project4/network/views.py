@@ -16,6 +16,15 @@ def index(request):
         "posts": Post.objects.all()
     })
 
+def get_post(request, post_id):
+    try:
+        post = Post.objects.get(pk=email_id)
+    except Email.DoesNotExist:
+        return JsonResponse({"error": "Email not found."}, status=404)
+
+    if request.method == "GET":
+        return JsonResponse(post.serialize())
+
 def following(request):
     pass
 
