@@ -12,8 +12,6 @@ class User(AbstractUser):
             "username": self.username,
             "email": self.email,
             "followers": [follower for follower in self.followers.all()],
-            "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
-            "likes": self.likes
         }
 
 
@@ -33,8 +31,8 @@ class Post(models.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "author": self.author,
+            "author": self.author.serialize(),
             "body": self.body,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
-            "likes": self.likes
+            "likes": [like for likes in self.likes.all()]
         }
