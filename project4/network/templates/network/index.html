@@ -19,8 +19,8 @@
                 <div class="card-header">
                     <strong>{{ post.author }} </strong> posted on <strong>{{ post.timestamp }}</strong>
                 </div>
-                <div class="card-body"> 
-                    <div id = "post-text" class="card-text"> {{ post.body }}</div>
+                <div class="card-body">
+                   <div id = "post-text-{{ post.id }}" class="card-text"> {{ post.body }}</div>
                 {% if request.user == post.author %}
                     <p class="edit-post" style="color: #0033ff; text-decoration: underline; cursor: pointer;">edit</p>
                 {% endif %}
