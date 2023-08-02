@@ -46,5 +46,5 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function edit_post(post){
-    console.log("Clicked")
+    console.log(`C123241234`)
 }
