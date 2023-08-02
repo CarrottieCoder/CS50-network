@@ -12,17 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
               console.log(result);
           });
     }
-    document.querySelectorAll('.edit-post').forEach((post) => {
-        post.onclick = function(event) {
-            // Bug: Event propagating
-            event.stopPropagation()
-            // Get the parent, get the text
-            const postParent = post.parentElement
-            
-            const pre_string = postParent.textContent
-            const just_text = pre_string.replace("edit", "");
-            const text = just_text.trim()
-
+    document.querySelectorAll('.edit-post').forEach((link) => {
+        link.onclick = function() {
             if(!text.includes('<textarea')){
                 postParent.innerHTML = " "
                 
