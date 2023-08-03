@@ -26,7 +26,15 @@ def profile(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return HttpResponse('User does not exist')
+
+    posts = Post.objects.all().filter(author=user)
+    paginator = Paginator(posts, 10)  # Show 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    
     return render(request, 'network/profile.html',{
+        'page_obj': page_obj, 
         "user": user,
     })
 

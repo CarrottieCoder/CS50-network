@@ -1,6 +1,7 @@
 {% extends "network/layout.html" %}
 {% load static %}
 {% block body %}
+    {% block posts %}
     <div id="posts" style="display: grid; place-items: center;">
         <h1 style="margin: 20px">All posts</h1>
         {% if request.user.is_authenticated %}
@@ -53,4 +54,5 @@
         </div>
 
     </div>
+    {% endblock %}
 {% endblock %}

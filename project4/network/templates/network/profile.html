@@ -1,25 +1,74 @@
-{% extends "network/layout.html" %}
+{% extends "network/index.html" %}
 {% load static %}
 {% block body %}
+
 <div class="container text-center">
     <div class="row">
-        <div class="col">
-            <h1> {{ user.username}} </h1>
-        </div>
-        <div class="col">
-            {% if request.user.username != user.username %}
-                <button>Follow</button>
-            {% else %}
-                <h2>You can't follow yourself</h2>
-            {% endif %}
-        </div>
-    <div class="row">
       <div class="col">
-        Followed by: {% user.followers %}
+        <h1 style="margin-top: 20px; margin-bottom: 20px;"> {{ user.username}} </h1>
       </div>
+      {% if request.user != user %}
       <div class="col">
-        Follows: {% user.followers %}
+        <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" id = "follow-{{ user.username }}">Follow</button>
+      </div>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col" style="padding: 20px;">
+        <h4>Followed by: {{ user.followers.count }}</h4>
+      </div>
+      <div class="col" style="padding: 20px;">
+       <h4>Follows: {{  user.following.count }}</h4>
+      </div>
+      <div class="col" style="padding: 20px;">
+        <h4>Posts: {{  user.usersPosts.count }}</h4>
       </div>
     </div>
-  </div
+</div>
+
+{% block posts %}
+<div id="posts" style="display: grid; place-items: center;">
+    {% for post in page_obj %}
+        <div class="card text-center" style="width:50%; margin: 20px;">
+            <div class="card-header">
+                <a style="color: black;"
+                    href="{% url 'profile' post.author.username %}"><strong>{{ post.author }}</a></strong> posted on <strong>{{ post.timestamp }}</strong>
+            </div>
+            <div class="card-body">
+               <div id = "post-text-{{ post.id }}" class="card-text"> {{ post.body }}</div>
+            {% if request.user == post.author %}
+                <p class="edit-post" style="color: #0033ff; text-decoration: underline; cursor: pointer;">edit</p>
+            {% endif %}
+            </div>
+            <div class="card-footer text-body-secondary">
+                <div class="like-post" id="like-{{ post.id }}"><i class="bi bi-heart-fill" style="color: rgb(255, 15, 15);"></i>
+                 {{ post.count_likes }}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <h1>This user has no posts</h1>
+    {%  endfor %}
+
+    {% if user.userPosts%}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock posts %}
+
 {% endblock body %}
