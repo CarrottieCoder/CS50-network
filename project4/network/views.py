@@ -21,8 +21,8 @@ def index(request):
         'page_obj': page_obj, 
         })
     
-def profile(request):
-    return render(request, 'network/index.html',{
+def profile(request, username):
+    return render(request, 'network/profile.html',{
     })
 
 @csrf_exempt
