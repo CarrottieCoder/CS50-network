@@ -1,5 +1,25 @@
 {% extends "network/layout.html" %}
 {% load static %}
 {% block body %}
-<h1>{{ request.user.username }}</h1>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h1> {{ user.username}} </h1>
+        </div>
+        <div class="col">
+            {% if request.user.username != user.username %}
+                <button>Follow</button>
+            {% else %}
+                <h2>You can't follow yourself</h2>
+            {%endif5}
+        </div>
+    <div class="row">
+      <div class="col">
+        Followed by: {% user.followers %}
+      </div>
+      <div class="col">
+        Follows: {% user.followers %}
+      </div>
+    </div>
+  </div
 {% endblock body %}
