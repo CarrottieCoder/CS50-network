@@ -56,21 +56,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.like-post').forEach((element) => {
         element.addEventListener('dblclick', ()  =>{
-            fetch(`api/${post_id}/edit`, {
+            const post_id_pre = element.id
+            const post_id = post_id_pre.replace("like-", "");
+            console.log(post_id)
+            fetch(`api/${post_id}/like`, {
                 method: 'PUT',
-                body: JSON.stringify({
-                    body: post_parent.childNodes[1].value
-                })
               })
               .then(response => {
-                if (response.ok){
-                    post_parent.innerHTML = post_parent.childNodes[1].value
-                    post_parent.parentElement.childNodes[3].innerHTML = "edit"
-                    localStorage.removeItem(post_parent.id);
-        
-                } else{
+                if (response.status == "205"){
+                    const likes_str = element.childNodes[1].textContent
+                    var likes = parseInt(likes_str)
+                    likes += 1
+                    const likes_updated_str = likes.toString()
+                    
+                    element.childNodes[1].textContent = likes_updated_str
+
+
+                } else if (response.status != "200") {
                     alert("Something went wrong. Reload the page")
-                }
+                } 
+                
+                
+                
         })
     })
     

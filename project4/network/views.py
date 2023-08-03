@@ -21,6 +21,12 @@ def index(request):
         'page_obj': page_obj, 
         })
     
+def profile(request):
+    return render(request, 'network/index.html',{
+    })
+
+@csrf_exempt
+@login_required
 def like_post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
@@ -28,10 +34,17 @@ def like_post(request, post_id):
         return JsonResponse({"error": "Post not found."}, status=404)
 
     if request.method == "PUT":
-       if request.user not in post.likes:
-            post.likes.append(request.user)
+        if request.user not in post.likes.all():
+            post.likes.add(request.user)
             post.save()
-            return HttpResponse(status=204)
+            return HttpResponse(status=205)
+        else:
+            return JsonResponse({"error": "You Have already liked this post"})
+    else:
+        return JsonResponse({"error": "Wrong request"}, status=404)
+            
+
+    
         
 
 def get_post(request, post_id):
