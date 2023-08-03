@@ -22,7 +22,12 @@ def index(request):
         })
     
 def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return HttpResponse('User does not exist')
     return render(request, 'network/profile.html',{
+        "user": user,
     })
 
 @csrf_exempt

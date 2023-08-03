@@ -17,7 +17,8 @@
         {% for post in page_obj %}
             <div class="card text-center" style="width:50%; margin: 20px;">
                 <div class="card-header">
-                    <strong>{{ post.author }} </strong> posted on <strong>{{ post.timestamp }}</strong>
+                    <a style="color: black;"
+                        href="{% url 'profile' post.author.username %}"><strong>{{ post.author }}</a></strong> posted on <strong>{{ post.timestamp }}</strong>
                 </div>
                 <div class="card-body">
                    <div id = "post-text-{{ post.id }}" class="card-text"> {{ post.body }}</div>
