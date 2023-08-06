@@ -3,7 +3,7 @@
 {% block body %}
     {% block posts %}
     <div id="posts" style="display: grid; place-items: center;">
-        <h1 style="margin: 20px">All posts</h1>
+        <h1 style="margin: 20px">{{ heading }}</h1>
         {% if request.user.is_authenticated %}
             <div class="card" style="width: 50%">
                 <div class="card-body">

@@ -19,6 +19,7 @@ def index(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'network/index.html',{
         'page_obj': page_obj, 
+        'heading': 'All Posts'
         })
 
 @login_required    
@@ -103,7 +104,14 @@ def get_post(request, post_id):
         return JsonResponse(post.serialize())
 
 def following(request):
-    pass
+    posts = Post.objects.filter(author__in=request.user.following.all()).order_by('-timestamp')
+    paginator = Paginator(posts, 10)  # Show 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'network/index.html',{
+        'page_obj': page_obj, 
+        'heading': 'Following'
+        })
 
 @csrf_exempt
 def edit_post(request, post_id):
