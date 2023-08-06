@@ -14,7 +14,6 @@ urlpatterns = [
     path("create", views.create, name="create"),
     path("api/<int:post_id>/edit", views.edit_post, name="edit_post"),
     path("api/<int:post_id>/like", views.like_post, name="like_post"),
-#    path("api/<int:post_id>", views.get_post, name="get_post"),
     path("api/<str:username>/follow", views.follow, name='follow'),
     
 ]
