@@ -1,16 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('#create-post').onsubmit = () => {
-        fetch('/create', {
-            method: 'POST',
-            body: JSON.stringify({
-                body: document.querySelector("#create-body").value
+    if ( document.querySelector('#create-post') != undefined){
+        document.querySelector('#create-post').onsubmit = () => {
+            fetch('/create', {
+                method: 'POST',
+                body: JSON.stringify({
+                    body: document.querySelector("#create-body").value
+                })
             })
-          })
-          .then(response => response.json())
-          .then(result => {
-              // Print result
-              console.log(result);
-          });
+            .then(response => response.json())
+            .then(result => {
+                // Print result
+                console.log(result);
+            });
+        }
     }
     document.querySelectorAll('.edit-post').forEach((link) => {
         link.onclick = function(event) { 
@@ -79,6 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 
         })
+    })
+    
+    document.querySelector('#follow').addEventListener('click', () => {
+        console.log('Works')
     })
     
 })

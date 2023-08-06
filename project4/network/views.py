@@ -20,7 +20,7 @@ def index(request):
     return render(request, 'network/index.html',{
         'page_obj': page_obj, 
         })
-        
+
 @login_required    
 def profile(request, username):
     try:
@@ -64,7 +64,8 @@ def like_post(request, post_id):
         return JsonResponse({"error": "Wrong request"}, status=404)
             
 
-    
+def follow(request, username):
+    pass
         
 
 def get_post(request, post_id):
