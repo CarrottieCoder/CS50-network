@@ -92,7 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
            fetch(`/api/${username}/follow`, {
             method: 'PUT',
           })
-          .then(response => console.log(response))
+          .then(response => {
+            console.log(response)
+            if (document.querySelector('#follow').innerHTML == 'Follow'){
+                document.querySelector('#follow').innerHTML = 'Unfollow'
+            } else {
+                document.querySelector('#follow').textContent = 'Follow'
+            }
+            fetch(`/api/${username}/follow`, {
+                method: 'GET',
+            })
+            .then(response => response.json()) // Extract the JSON data from the response
+            .then(data => {
+                console.log(data.followers)
+                document.querySelector('#followed-by').textContent = `Followed by: ${data.followers}`
+            }) 
+          })
     })
     }
 });

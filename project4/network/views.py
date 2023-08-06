@@ -83,6 +83,11 @@ def follow(request, username):
             user.save()
             print(user.followers)
             return HttpResponse(status=205)
+
+    elif request.method == 'GET':
+        return JsonResponse(
+            {"followers": user.followers.count()}, status=205
+        )
     else:
         return JsonResponse({"error": "Wrong request"}, status=404)    
         
