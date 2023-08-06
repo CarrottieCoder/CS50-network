@@ -93,16 +93,6 @@ def follow(request, username):
         return JsonResponse({"error": "Wrong request"}, status=404)    
         
 
-def get_post(request, post_id):
-    print(post_id)
-    try:
-        post = Post.objects.get(id=post_id)
-    except Post.DoesNotExist:
-        return JsonResponse({"error": "Post not found."}, status=404)
-
-    if request.method == "GET":
-        return JsonResponse(post.serialize())
-
 @login_required
 def following(request):
     posts = Post.objects.filter(author__in=request.user.following.all()).order_by('-timestamp')

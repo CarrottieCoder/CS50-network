@@ -34,5 +34,5 @@ class Post(models.Model):
             "author": self.author.serialize(),
             "body": self.body,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
-            "likes": [like for likes in self.likes.all()]
+            "likes": [like for like in self.likes.all()]
         }

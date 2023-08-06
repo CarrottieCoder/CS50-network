@@ -135,9 +135,3 @@ function save_edited_post(post_parent){
       
 };
 
-   
-// function get_post(post_id) {
-//     fetch(`api/${post_id}`)
-//     .then(response => response.json())
-//     .then(post => console.log(post))
-//
