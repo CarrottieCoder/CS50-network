@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const post_id_pre = element.id
             const post_id = post_id_pre.replace("like-", "");
             console.log(post_id)
-            fetch(`api/${post_id}/like`, {
+            fetch(`/api/${post_id}/like`, {
                 method: 'PUT',
               })
               .then(response => {
@@ -83,18 +83,20 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
     
-    document.querySelector('#follow').addEventListener('click', () => {
-        console.log('Works')
-    })
-    
 })
+
+    if (document.querySelector('#follow') != undefined){
+        document.querySelector('#follow').addEventListener('click', () => {
+            
+    })
+    }
 });
 
 function save_edited_post(post_parent){
    const post_id_pre = post_parent.id
    const post_id = post_id_pre.replace("post-text-", "");
    console.log(post_id)
-       fetch(`api/${post_id}/edit`, {
+       fetch(`/api/${post_id}/edit`, {
         method: 'PUT',
         body: JSON.stringify({
             body: post_parent.childNodes[1].value
