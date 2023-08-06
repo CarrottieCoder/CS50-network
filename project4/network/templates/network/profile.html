@@ -7,10 +7,12 @@
       <div class="col">
         <h1 style="margin-top: 20px; margin-bottom: 20px;"> {{ user.username}} </h1>
       </div>
+      {% if request.user.is_authenticated %}
       {% if request.user != user %}
       <div class="col">
-        <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" id = "follow-{{ user.username }}">Follow</button>
+        <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" id = "follow-{{ user.username }}">{{ follows }}</button>
       </div>
+      {% endif %}
       {% endif %}
     </div>
     <div class="row">

@@ -20,7 +20,8 @@ def index(request):
     return render(request, 'network/index.html',{
         'page_obj': page_obj, 
         })
-    
+        
+@login_required    
 def profile(request, username):
     try:
         user = User.objects.get(username=username)
@@ -32,10 +33,16 @@ def profile(request, username):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    if user in request.user.following.all():
+        follows = "Unfollow"
+    else:
+        follows = "Follow"
+
     
     return render(request, 'network/profile.html',{
         'page_obj': page_obj, 
         "user": user,
+        "follows": follows,
     })
 
 @csrf_exempt
