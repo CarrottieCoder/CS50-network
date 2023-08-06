@@ -103,6 +103,7 @@ def get_post(request, post_id):
     if request.method == "GET":
         return JsonResponse(post.serialize())
 
+@login_required
 def following(request):
     posts = Post.objects.filter(author__in=request.user.following.all()).order_by('-timestamp')
     paginator = Paginator(posts, 10)  # Show 10 posts per page
