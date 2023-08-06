@@ -62,10 +62,29 @@ def like_post(request, post_id):
             return JsonResponse({"error": "You Have already liked this post"})
     else:
         return JsonResponse({"error": "Wrong request"}, status=404)
-            
 
+@csrf_exempt      
+@login_required
 def follow(request, username):
-    pass
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return JsonResponse({"error": "User not found."}, status=404)
+
+    if request.method == "PUT":
+        if request.user not in user.followers.all():
+            user.followers.add(request.user)
+            user.save()
+            print(user.followers)
+            return HttpResponse(status=205)
+            
+        else:
+            user.followers.remove(request.user)
+            user.save()
+            print(user.followers)
+            return HttpResponse(status=205)
+    else:
+        return JsonResponse({"error": "Wrong request"}, status=404)    
         
 
 def get_post(request, post_id):

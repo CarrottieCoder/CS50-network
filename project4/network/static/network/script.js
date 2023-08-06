@@ -87,7 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#follow') != undefined){
         document.querySelector('#follow').addEventListener('click', (event) => {
-            console.log(event.target)
+           const username =  document.querySelector('#username-input').value
+           // path("api/<str:username>/follow", views.follow, name='follow'),
+           fetch(`/api/${username}/follow`, {
+            method: 'PUT',
+          })
+          .then(response => console.log(response))
     })
     }
 });
