@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
     if (document.querySelector('#follow') != undefined){
-        document.querySelector('#follow').addEventListener('click', () => {
-            
+        document.querySelector('#follow').addEventListener('click', (event) => {
+            console.log(event.target)
     })
     }
 });
